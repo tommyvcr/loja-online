@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useCart } from "@/lib/cart";
 
 const links = [
   { href: "/novidades", label: "Novidades" },
@@ -13,6 +14,7 @@ const links = [
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+    const { count } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -49,7 +51,12 @@ export default function Header() {
           ))}
         </nav>
 
-        <button className="text-sm text-neutral-300 transition hover:text-white">Carrinho (0)</button>
+        <Link
+          href="/carrinho"
+          className="text-sm text-neutral-300 transition hover:text-white"
+        >
+          Carrinho ({count})
+        </Link>
       </div>
     </header>
   );
