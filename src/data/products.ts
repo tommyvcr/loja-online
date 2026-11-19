@@ -101,5 +101,29 @@ export const products: Product[] = [
     sizes: ["S", "M", "L", "XL"],
     isNew: true,
   },
-  
+
 ];
+
+export const categoryLabels: Record<Category, string> = {
+  "t-shirts": "T-shirts",
+  hoodies: "Hoodies",
+  calcas: "Calças",
+  casacos: "Casacos",
+  acessorios: "Acessórios",
+};
+
+export function getProductBySlug(slug: string) {
+  return products.find((product) => product.slug === slug);
+}
+
+// Outros produtos, com os da mesma categoria primeiro
+export function getRelatedProducts(product: Product, limit = 4) {
+  return products
+    .filter((p) => p.id !== product.id)
+    .sort(
+      (a, b) =>
+        Number(b.category === product.category) -
+        Number(a.category === product.category)
+    )
+    .slice(0, limit);
+}
