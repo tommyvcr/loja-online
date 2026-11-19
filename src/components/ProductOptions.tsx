@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import type { Product } from "@/data/products";
+import { addItem } from "@/lib/cart";
 
 export default function ProductOptions({ product }: { product: Product }) {
   const [color, setColor] = useState(product.colors[0]);
   const [size, setSize] = useState<string | null>(null);
   const [added, setAdded] = useState(false);
 
-  function handleAdd() {
+    function handleAdd() {
     if (!size) return;
-    // Por agora é só uma simulação; o carrinho a sério vem no próximo passo
+    addItem(product.slug, color, size);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   }
