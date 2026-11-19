@@ -1,9 +1,28 @@
+"use client";
+
 import Link from "next/link";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 
 export default function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
   return (
-    <section className="relative flex h-screen items-end bg-gradient-to-br from-neutral-700 via-neutral-900 to-black">
-      <div className="mx-auto w-full max-w-7xl px-6 pb-24">
+    <section ref={ref} className="relative flex h-screen items-end overflow-hidden">
+      <motion.div
+        style={{ y: bgY }}
+        className="absolute inset-0 bg-gradient-to-br from-neutral-700 via-neutral-900 to-black"
+      />
+      <motion.div
+        style={{ opacity: textOpacity }}
+        className="relative mx-auto w-full max-w-7xl px-6 pb-24"
+      >
         <p className="text-sm uppercase tracking-[0.3em] text-neutral-400">
           Coleção Outono/Inverno 26
         </p>
@@ -16,7 +35,7 @@ export default function Hero() {
         >
           Descobrir coleção
         </Link>
-      </div>
+      </motion.div>
     </section>
   );
 }
