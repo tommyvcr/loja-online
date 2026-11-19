@@ -2,18 +2,21 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/data/products";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  className = "w-64 shrink-0 snap-start sm:w-72",
+}: {
+  product: Product;
+  className?: string;
+}) {
   return (
-    <Link
-      href={`/produtos/${product.slug}`}
-      className="group block w-64 shrink-0 snap-start sm:w-72"
-    >
+    <Link href={`/produtos/${product.slug}`} className={`group block ${className}`}>
       <div className="relative aspect-square overflow-hidden rounded-lg bg-neutral-800">
         <Image
           src={`/images/products/${product.slug}.jpg`}
           alt={product.name}
           fill
-          sizes="(min-width: 640px) 288px, 256px"
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
           className="object-cover transition duration-500 group-hover:scale-105"
         />
         {product.isNew && (
