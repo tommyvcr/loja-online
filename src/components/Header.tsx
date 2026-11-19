@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const links = [
   { href: "/novidades", label: "Novidades" },
@@ -27,9 +28,18 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="text-xl font-bold tracking-tight">
-          Machado<span className="font-light">INC</span>
-        </Link>
+        <Link href="/" className="flex items-center gap-3">
+  <Image
+    src="/images/logo/symbol-white.png"
+    alt="MachadoINC"
+    width={28}
+    height={32}
+    priority
+  />
+  <span className="text-xl font-bold tracking-tight">
+    Machado<span className="font-light">INC</span>
+  </span>
+</Link>
 
         <nav className="hidden gap-8 text-sm md:flex">
           {links.map((link) => (
